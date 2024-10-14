@@ -17,6 +17,7 @@ public class P1
         na1 = random.nextInt(100);
         na2 = ThreadLocalRandom.current().nextInt(100);
         na3 = (int) (Math.random() * 100);
+        System.out.println("na1 = " + na1 + "\nna2 = " + na2 + "\nna3 = " + na3 + "\n");
     }
 
     public void ej2() throws InterruptedException
