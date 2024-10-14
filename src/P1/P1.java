@@ -35,7 +35,6 @@ public class P1
     {
         double res1 = 0;
         double res2 = 0;
-        int i;
         double[] v1 = new double[1000];
         double[] v2 = new double[1000];
         double[] v3 = new double[1000];
@@ -134,7 +133,7 @@ class ej2f2 implements Runnable
         x0 = ThreadLocalRandom.current().nextDouble(2) + 2;
         x1 = 4;
         int iter = 0;
-        while(!cero && iter < 100)
+        while(!cero && iter < 10000)
         {
             System.out.println("El valor actual de Xi en la función 2 es " + x0);
             if(fp(x0) != 0)
