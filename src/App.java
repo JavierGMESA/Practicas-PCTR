@@ -1,5 +1,6 @@
 import P1.*;
 import P2.*;
+import P3.*;
 //import java.io.IOException;
 
 public class App {
@@ -16,6 +17,12 @@ public class App {
         //p2.ejercicio2();
         p2.ejercicio3();
         //p2.ejercicio5();
-        p2.ejercicio6();
+        //p2.ejercicio6();
+
+        //Práctica 3
+        P3 p3 = new P3();
+        p3.ejercicio1();
+        p3.ejercicio2();
+        p3.ejercicio3();
     }
 }
