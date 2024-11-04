@@ -4,7 +4,7 @@ import java.util.Random; //random.nextTipo(valor_máximo - 1) no es útil con hi
                          //y puede repetirse la semilla
 import java.util.concurrent.ThreadLocalRandom; //ThreadLocalRandom.current().nextTipo(valor_máximo - 1) Es útil con hilos pues usa una instancia 
                                                //diferente por cada hilo. Genera entre 0 y el valor máximo - 1
-//Está la tercera opción Math.Random() que funciona igual que Random() pero generando numeron aleatorios double entre 0.0 y 1.0 y con sincronización
+//Está la tercera opción Math.Random() que funciona igual que Random() pero generando numeron aleatorios double entre 0.0 y 1.0 y con sincronización. El método está sincronizado (tarda mas)
 
 import java.lang.Thread;
 
