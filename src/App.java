@@ -3,6 +3,7 @@ import P2.*;
 import P3.*;
 import P4.*;
 import P5.*;
+import P6.*;
 //import java.io.IOException;
 
 public class App {
@@ -27,11 +28,17 @@ public class App {
         //p3.ejercicio2();
         //p3.ejercicio3();
 
+        //Práctica 5
         P5 p5 = new P5();
         //p5.ej3();
         //p5.ej5();
-        p5.ej7();
+        //p5.ej7();
         
+        //Práctica 6
+        P6 p6 = new P6();
+        p6.ejercicio4();
+        p6.ejercicio5();
+        p6.ejercicio7();
 
 
 
