@@ -5,6 +5,7 @@ import P4.*;
 import P5.*;
 import P6.*;
 //import java.io.IOException;
+import P7.P7;
 
 public class App {
     public static void main(String[] args) throws Exception 
@@ -36,9 +37,14 @@ public class App {
         
         //Práctica 6
         P6 p6 = new P6();
-        p6.ejercicio4();
-        p6.ejercicio5();
-        p6.ejercicio7();
+        //p6.ejercicio4();
+        //p6.ejercicio5();
+        //p6.ejercicio7();
+
+        //Práctica 7
+        P7 p7 = new P7();
+        //p7.ejercicio1();
+        p7.ejercicio2();
 
 
 
