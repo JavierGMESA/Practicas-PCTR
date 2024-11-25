@@ -4,8 +4,8 @@ import P3.*;
 import P4.*;
 import P5.*;
 import P6.*;
-//import java.io.IOException;
-import P7.P7;
+import P7.*;
+import P8.*;
 
 public class App {
     public static void main(String[] args) throws Exception 
@@ -44,7 +44,13 @@ public class App {
         //Práctica 7
         P7 p7 = new P7();
         //p7.ejercicio1();
-        p7.ejercicio2();
+        //p7.ejercicio2();
+
+        //Práctica 8
+        P8 p8 = new P8();
+        //p8.ejercicio1();
+        //p8.ejercicio2();
+        //p8.ejercicio3();
 
 
 
