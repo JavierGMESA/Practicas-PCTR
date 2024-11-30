@@ -1,0 +1,5 @@
+Para compilar:
+javac -cp .:$MPJ_HOME/lib/mpj.jar archivo.java
+
+Para ejecutar:
+mpjrun.sh -np 2 archivo

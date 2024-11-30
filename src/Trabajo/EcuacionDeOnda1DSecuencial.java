@@ -1,6 +1,6 @@
 package Trabajo;
 
-import java.util.concurrent.ThreadLocalRandom;
+//import java.util.concurrent.ThreadLocalRandom;
 
 public class EcuacionDeOnda1DSecuencial {
     private double[][] matriz; // Matriz para almacenar los valores
@@ -29,8 +29,15 @@ public class EcuacionDeOnda1DSecuencial {
         this.matriz = new double[N + 1][T_max + 1];
 
         // Inicialización de la primera columna (t=0) con valores aleatorios
+        double j = 2.0;
         for (int i = 0; i <= N; i++) {
-            matriz[i][0] = ThreadLocalRandom.current().nextDouble(-1000.0, 1000.0);
+
+            matriz[i][0] = j;
+            j += 0.5;
+            if(j == 10.0)
+            {
+                j = 2.0;
+            }
         }
     }
 
@@ -45,20 +52,23 @@ public class EcuacionDeOnda1DSecuencial {
         }
 
         // Ecuación de ondas
-        matriz[i][t] = (2.0 * leerValor(i, t - 1)) - leerValor(i, t - 2)+ (c * (leerValor(i - 1, t - 1) - (2.0 * leerValor(i, t - 1)) + leerValor(i + 1, t - 1)));
+        matriz[i][t] = (2.0 * leerValor(i, t - 1)) - leerValor(i, t - 2) + (c * (leerValor(i - 1, t - 1) - (2.0 * leerValor(i, t - 1)) + leerValor(i + 1, t - 1)));
     }
 
     // Método privado para leer valores de la matriz, manejando bordes con Neumann
     private double leerValor(int i, int t) {
-        if (t < 0) {
-            return 0; // Valores ficticios para t=-1
+        if (t < 0){
+            return 0.0; // Valores ficticios para t=-1
         }
-        if (i < 0) {
-            return leerValor(1, t); // Reflejo para Neumann en el borde superior
+        if (i < 0)
+        {
+            i = 1; // Reflejo para Neumann en el borde inferior
         }
-        if (i > N) {
-            return leerValor(N - 1, t); // Reflejo para Neumann en el borde inferior
+        if (i > N)
+        {
+            i = N - 1; // Reflejo para Neumann en el borde superior
         }
+
         return matriz[i][t];
     }
 
@@ -83,32 +93,78 @@ public class EcuacionDeOnda1DSecuencial {
 
     public static void main(String[] args) {
         // Ejemplo de uso
-        int N = 10; // Número de filas
-        int T_max = 10; // Número de columnas
+        int N = 1000; // Número de filas
+        int T_max = 10000; // Número de columnas
         double v = 0.5; // Velocidad de la onda
 
         EcuacionDeOnda1DSecuencial ecuacion = new EcuacionDeOnda1DSecuencial(N, T_max, v);
 
-        // Ponemos un N negativo
-        //ecuacion = new EcuacionDeOnda1DSecuencial(-1, T_max, v); // Lanza excepción "N ha de ser un entero positivo"
-
-        //Ponemos un T_max negativo
-        //ecuacion = new EcuacionDeOnda1DSecuencial(N, -1, v); // Lanza excepción "T_max ha de ser un entero positivo"
-
         // Rellenar la matriz
-        for (int t = 1; t <= T_max; t++) {
-            for (int i = 0; i <= N; i++) {
+        for(int t = 1; t <= T_max; t++)
+        {
+            for(int i = 0; i <= N; i++)
+            {
                 ecuacion.calcularCelda(i, t);
             }
         }
+
+        System.out.println("Termina de calcular");
+
+        // Se imprime la matriz resultante
+        //ecuacion.imprimirMatriz();
+
+        //PRUEBAS
+        // Ponemos un N negativo
+        try
+        {
+            ecuacion = new EcuacionDeOnda1DSecuencial(-1, T_max, v); // Lanza excepción "N ha de ser un entero positivo"
+        }catch(Exception e)
+        {
+            System.out.println("Excepción 1: " + e);
+        }
+
+        //Ponemos un T_max negativo
+        try
+        {
+            ecuacion = new EcuacionDeOnda1DSecuencial(N, -1, v); // Lanza excepción "T_max ha de ser un entero positivo"
+        }catch(Exception e)
+        {
+            System.out.println("Excepción 2: " + e);
+        }
         
         // Ponemos un i fuera de rango
-        //ecuacion.calcularCelda(300, 8); // Lanza excepción "Primer parámetro fuera de rango"
+        try
+        {
+            ecuacion.calcularCelda(-3, 8); // Lanza excepción "Primer parámetro fuera de rango"
+        }catch(Exception e)
+        {
+            System.out.println("Excepción 3: " + e);
+        }
 
         // Ponemos un t fuera de rango
-        //ecuacion.calcularCelda(3, 300); // Lanza excepción "Segundo parámetro fuera de rango"
+        try
+        {
+            ecuacion.calcularCelda(3, -3); // Lanza excepción "Segundo parámetro fuera de rango"
+        }catch(Exception e)
+        {
+            System.out.println("Excepción 4: " + e);
+        }
 
-        // Imprimir la matriz resultante
+        // Onda de N = 0 y T = 0 (matriz con un único elemento)
+        N = 0;
+        T_max = 0;
+        ecuacion = new EcuacionDeOnda1DSecuencial(N, T_max, v);
+
+        // Rellenar la matriz
+        for (int t = 1; t <= T_max; t++) 
+        {
+            for (int i = 0; i <= N; i++) 
+            {
+                ecuacion.calcularCelda(i, t);
+            }
+        }
+
+        // Se imprime la matriz resultante
         ecuacion.imprimirMatriz();
     }
 }
