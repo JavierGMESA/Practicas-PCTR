@@ -1,6 +1,7 @@
 package P7;
 /* Copyright (C) 2006 M. Ben-Ari. See copyright.txt */
-class PCMonitor {
+class PCMonitor 
+{
 	final int N;
 	int Oldest = 0, Newest = 0;
   	volatile int Count = 0;

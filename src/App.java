@@ -6,6 +6,7 @@ import P5.*;
 import P6.*;
 import P7.*;
 import P8.*;
+import P9.*;
 
 public class App {
     public static void main(String[] args) throws Exception 
@@ -51,6 +52,14 @@ public class App {
         //p8.ejercicio1();
         //p8.ejercicio2();
         //p8.ejercicio3();
+
+        //Práctica 9
+        P9 p9 = new P9();
+        //p9.ejercicio1b();
+        //p9.ejercicio3();
+        //p9.ejercicio4();
+        //p9.ejercicio5a();
+        p9.ejercicio5b();
 
 
 
