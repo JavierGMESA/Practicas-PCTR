@@ -12,7 +12,7 @@ public class EcuacionDeOnda1DParalelo {
         int N = 5000;
         int T_max = 10000;
         double v = 0.5;
-        int numHilos = 15;
+        int numHilos = 32;
 
         UsaEcuacionDeOnda1DMonitor(N, T_max, v, numHilos);
 
