@@ -93,7 +93,7 @@ public class EcuacionDeOnda1DSecuencial {
 
     public static void main(String[] args) {
         // Ejemplo de uso
-        int N = 1000; // Número de filas
+        int N = 5000; // Número de filas
         int T_max = 10000; // Número de columnas
         double v = 0.5; // Velocidad de la onda
 
@@ -120,6 +120,7 @@ public class EcuacionDeOnda1DSecuencial {
         //ecuacion.imprimirMatriz();
 
         //PRUEBAS
+        System.out.println("Pruebas:");
         // Ponemos un N negativo
         try
         {

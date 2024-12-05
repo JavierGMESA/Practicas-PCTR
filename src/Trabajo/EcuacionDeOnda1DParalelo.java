@@ -9,73 +9,74 @@ import java.util.concurrent.Executors;
 
 public class EcuacionDeOnda1DParalelo {
     public static void main(String[] args) throws InterruptedException {
-        int N = 1000;
+        int N = 5000;
         int T_max = 10000;
         double v = 0.5;
-        int numHilos = 6;
+        int numHilos = 15;
 
         UsaEcuacionDeOnda1DMonitor(N, T_max, v, numHilos);
 
-        //PRUEBAS
-        // Ponemos un N negativo
-        try
-        {
-            UsaEcuacionDeOnda1DMonitor(-1, T_max, v, numHilos); // Lanza excepción "N ha de ser un entero positivo"
-        }catch(Exception e)
-        {
-            System.out.println("Excepción 1: " + e.getMessage());
-        }
-
-        //Ponemos un T_max negativo
-        try
-        {
-            UsaEcuacionDeOnda1DMonitor(N, -1, v, numHilos); // Lanza excepción "T_max ha de ser un entero positivo"
-        }catch(Exception e)
-        {
-            System.out.println("Excepción 2: " + e.getMessage());
-        }
-        
-        // Ponemos un i fuera de rango
-        try
-        {
-            EcuacionDeOnda1DMonitor ecuacion = new EcuacionDeOnda1DMonitor(10, 10, v);
-            ecuacion.calcularCelda(-3, 8); // Lanza excepción "Primer parámetro fuera de rango"
-        }catch(Exception e)
-        {
-            System.out.println("Excepción 3: " + e.getMessage());
-        }
-
-        // Ponemos un t fuera de rango
-        try
-        {
-            EcuacionDeOnda1DMonitor ecuacion = new EcuacionDeOnda1DMonitor(10, 10, v);
-            ecuacion.calcularCelda(3, -3); // Lanza excepción "Segundo parámetro fuera de rango"
-        }catch(Exception e)
-        {
-            System.out.println("Excepción 4: " + e.getMessage());
-        }
-
-        // Ponemos un número de hilos menor que 1
-        try
-        {
-            UsaEcuacionDeOnda1DMonitor(N, T_max, v, -1);
-        }catch(Exception e)
-        {
-            System.out.println("Excepción 5: " + e.getMessage());
-        }
-        // Ponemos un número de hilos mayor que N + 1
-        try
-        {
-            UsaEcuacionDeOnda1DMonitor(N, T_max, v, N + 2);
-        }catch(Exception e)
-        {
-            System.out.println("Excepción 6: " + e.getMessage());
-        }
+        // PRUEBAS
+        //System.out.println("Pruebas:");
+        //// Ponemos un N negativo
+        //try
+        //{
+        //    UsaEcuacionDeOnda1DMonitor(-1, T_max, v, numHilos); // Lanza excepción "N ha de ser un entero positivo"
+        //}catch(Exception e)
+        //{
+        //    System.out.println("Excepción 1: " + e.getMessage());
+        //}
+        //
+        ////Ponemos un T_max negativo
+        //try
+        //{
+        //    UsaEcuacionDeOnda1DMonitor(N, -1, v, numHilos); // Lanza excepción "T_max ha de ser un entero positivo"
+        //}catch(Exception e)
+        //{
+        //    System.out.println("Excepción 2: " + e.getMessage());
+        //}
+        //
+        //// Ponemos un i fuera de rango
+        //try
+        //{
+        //    EcuacionDeOnda1DMonitor ecuacion = new EcuacionDeOnda1DMonitor(10, 10, v);
+        //    ecuacion.calcularCelda(-3, 8); // Lanza excepción "Primer parámetro fuera de rango"
+        //}catch(Exception e)
+        //{
+        //    System.out.println("Excepción 3: " + e.getMessage());
+        //}
+        //
+        //// Ponemos un t fuera de rango
+        //try
+        //{
+        //    EcuacionDeOnda1DMonitor ecuacion = new EcuacionDeOnda1DMonitor(10, 10, v);
+        //    ecuacion.calcularCelda(3, -3); // Lanza excepción "Segundo parámetro fuera de rango"
+        //}catch(Exception e)
+        //{
+        //    System.out.println("Excepción 4: " + e.getMessage());
+        //}
+        //
+        //// Ponemos un número de hilos menor que 1
+        //try
+        //{
+        //    UsaEcuacionDeOnda1DMonitor(N, T_max, v, -1);
+        //}catch(Exception e)
+        //{
+        //    System.out.println("Excepción 5: " + e.getMessage());
+        //}
+        //// Ponemos un número de hilos mayor que N + 1
+        //try
+        //{
+        //    UsaEcuacionDeOnda1DMonitor(N, T_max, v, N + 2);
+        //}catch(Exception e)
+        //{
+        //    System.out.println("Excepción 6: " + e.getMessage());
+        //}
     }
 
     public static void UsaEcuacionDeOnda1DMonitor(int N, int T_max, double v, int numHilos)
     {
-        long tiempIni, tiempFin, tiempRes;
+        long tiempIni, tiempFin, tiempRes = 100000000;
 
         EcuacionDeOnda1DMonitor ecuacion = new EcuacionDeOnda1DMonitor(N, T_max, v);
 
@@ -88,9 +89,11 @@ public class EcuacionDeOnda1DParalelo {
         {
             throw new IllegalArgumentException("El número de hilos debe ser menor que N + 1");
         }
+
+        //for(int iteraciones = 0; iteraciones < 25; ++iteraciones){
         ExecutorService threadPool = Executors.newFixedThreadPool(numHilos);
         List<OndaRunnable> tareas = new ArrayList<>();
-
+        
         tiempIni = System.nanoTime();
         // Dividir las tareas entre los hilos
         int rango = (N + 1) / numHilos;
@@ -119,9 +122,13 @@ public class EcuacionDeOnda1DParalelo {
             }
         }
         tiempFin = System.nanoTime();
+        //if((tiempFin - tiempIni) / 1000 < tiempRes) 
         tiempRes = (tiempFin - tiempIni) / 1000;
+        long tiempNano = tiempFin - tiempIni;
+        
+        //}
         System.out.print("El tiempo del algoritmo paralelo con N=" + N + ", T_max=" + T_max + " y con " + numHilos + " hilos");
-        System.out.println(" ha sido de " + tiempRes + " microsegundos");
+        System.out.println(" ha sido de " + tiempRes + " microsegundos o " + tiempNano + " nanosegundos");
 
         System.out.println("Termina de calcular");
 
