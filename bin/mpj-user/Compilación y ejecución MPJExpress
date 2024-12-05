@@ -2,4 +2,4 @@ Para compilar:
 javac -cp .:$MPJ_HOME/lib/mpj.jar archivo.java
 
 Para ejecutar:
-mpjrun.sh -np 2 archivo
+mpjrun.sh -np numero_de_procesos archivo

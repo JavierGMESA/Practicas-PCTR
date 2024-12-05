@@ -97,8 +97,11 @@ public class EcuacionDeOnda1DSecuencial {
         int T_max = 10000; // Número de columnas
         double v = 0.5; // Velocidad de la onda
 
+        long tiempIni, tiempFin, tiempRes;
+
         EcuacionDeOnda1DSecuencial ecuacion = new EcuacionDeOnda1DSecuencial(N, T_max, v);
 
+        tiempIni = System.nanoTime();
         // Rellenar la matriz
         for(int t = 1; t <= T_max; t++)
         {
@@ -107,6 +110,9 @@ public class EcuacionDeOnda1DSecuencial {
                 ecuacion.calcularCelda(i, t);
             }
         }
+        tiempFin = System.nanoTime();
+        tiempRes = (tiempFin - tiempIni) / 1000;
+        System.out.println("El tiempo del algoritmo secuencial con N=" + N + " y T_max=" + T_max + " ha sido de " + tiempRes + " microsegundos");
 
         System.out.println("Termina de calcular");
 
@@ -120,7 +126,7 @@ public class EcuacionDeOnda1DSecuencial {
             ecuacion = new EcuacionDeOnda1DSecuencial(-1, T_max, v); // Lanza excepción "N ha de ser un entero positivo"
         }catch(Exception e)
         {
-            System.out.println("Excepción 1: " + e);
+            System.out.println("Excepción 1: " + e.getMessage());
         }
 
         //Ponemos un T_max negativo
@@ -129,7 +135,7 @@ public class EcuacionDeOnda1DSecuencial {
             ecuacion = new EcuacionDeOnda1DSecuencial(N, -1, v); // Lanza excepción "T_max ha de ser un entero positivo"
         }catch(Exception e)
         {
-            System.out.println("Excepción 2: " + e);
+            System.out.println("Excepción 2: " + e.getMessage());
         }
         
         // Ponemos un i fuera de rango
@@ -138,7 +144,7 @@ public class EcuacionDeOnda1DSecuencial {
             ecuacion.calcularCelda(-3, 8); // Lanza excepción "Primer parámetro fuera de rango"
         }catch(Exception e)
         {
-            System.out.println("Excepción 3: " + e);
+            System.out.println("Excepción 3: " + e.getMessage());
         }
 
         // Ponemos un t fuera de rango
@@ -147,7 +153,7 @@ public class EcuacionDeOnda1DSecuencial {
             ecuacion.calcularCelda(3, -3); // Lanza excepción "Segundo parámetro fuera de rango"
         }catch(Exception e)
         {
-            System.out.println("Excepción 4: " + e);
+            System.out.println("Excepción 4: " + e.getMessage());
         }
 
         // Onda de N = 0 y T = 0 (matriz con un único elemento)
@@ -165,6 +171,6 @@ public class EcuacionDeOnda1DSecuencial {
         }
 
         // Se imprime la matriz resultante
-        ecuacion.imprimirMatriz();
+        //ecuacion.imprimirMatriz();
     }
 }
