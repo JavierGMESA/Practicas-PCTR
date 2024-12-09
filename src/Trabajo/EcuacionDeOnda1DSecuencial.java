@@ -170,7 +170,7 @@ public class EcuacionDeOnda1DSecuencial {
                 ecuacion.calcularCelda(i, t);
             }
         }
-
+        
         // Se imprime la matriz resultante
         //ecuacion.imprimirMatriz();
     }

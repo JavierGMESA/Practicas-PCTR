@@ -1,11 +1,7 @@
 package Trabajo;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-//import java.util.concurrent.locks.Condition;
-//import java.util.concurrent.locks.ReentrantLock;
+import java.util.*;
+import java.util.concurrent.*;
 
 public class EcuacionDeOnda1DParalelo {
     public static void main(String[] args) throws InterruptedException {
@@ -76,7 +72,7 @@ public class EcuacionDeOnda1DParalelo {
 
     public static void UsaEcuacionDeOnda1DMonitor(int N, int T_max, double v, int numHilos)
     {
-        long tiempIni, tiempFin, tiempRes = 100000000;
+        long tiempIni, tiempFin;
 
         EcuacionDeOnda1DMonitor ecuacion = new EcuacionDeOnda1DMonitor(N, T_max, v);
 
@@ -115,15 +111,14 @@ public class EcuacionDeOnda1DParalelo {
         while (!threadPool.isTerminated()) {
             try
             {
-            Thread.sleep(100); // Esperar a que todos los hilos terminen
+            Thread.sleep(1); // Esperar a que todos los hilos terminen
             }catch(InterruptedException e)
             {
                 System.out.println("Ha habido una excepción al dormir el hilo main");
             }
         }
         tiempFin = System.nanoTime();
-        //if((tiempFin - tiempIni) / 1000 < tiempRes) 
-        tiempRes = (tiempFin - tiempIni) / 1000;
+        long tiempRes = (tiempFin - tiempIni) / 1000;
         long tiempNano = tiempFin - tiempIni;
         
         //}
@@ -140,8 +135,6 @@ public class EcuacionDeOnda1DParalelo {
 class EcuacionDeOnda1DMonitor {
     private final double[][] matriz;
     private final boolean[][] calculado;
-    //private final Condition[][] condiciones; // Matriz de variables de condición
-    //private final ReentrantLock lock; // Único lock
     private final Object[][] locks; // Usaremos esto para sincronizar cada celda
     private final int N;
     private final int T_max;
@@ -187,48 +180,6 @@ class EcuacionDeOnda1DMonitor {
             }
         }
     }
-
-    //Primera versión con un solo ReentrantLock y una matriz de variables de condición
-
-    //public double leerValor(int i, int t) throws InterruptedException {
-    //    if (t < 0){
-    //        return 0.0;
-    //    }
-    //    if (i < 0)
-    //    {
-    //        i = 1; // Reflejo para Neumann en el borde inferior
-    //    }
-    //    if (i > N)
-    //    {
-    //        i = N - 1; // Reflejo para Neumann en el borde superior
-    //    }
-    //
-    //    lock.lock();
-    //    try{
-    //        while (!calculado[i][t]) 
-    //        {
-    //            condiciones[i][t].await(); // Esperar a que se calcule el valor
-    //        }
-    //    } finally {
-    //        lock.unlock();
-    //    }
-    //    return matriz[i][t];
-    //}
-    //
-    //public void escribirValor(int i, int t, double valor) {
-    //    lock.lock();
-    //    try {
-    //        matriz[i][t] = valor;
-    //        calculado[i][t] = true;
-    //        condiciones[i][t].signalAll(); // Despertar a los hilos que están esperando este valor
-    //    } finally {
-    //        lock.unlock();
-    //    }
-    //}
-
-
-    // Segunda versión más eficiente de leerValor y escribirValor() usando una matriz de objetos llamada locks para
-    // dormir a los hilos además de usarla como cerrojo para el bloque synchronized de la exclusión mutua
 
     public double leerValor(int i, int t) throws InterruptedException {
         if (t < 0)
