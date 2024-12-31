@@ -17,10 +17,10 @@ public class Hyman {
         public void run() {
             for (int i = 0; i < iteraciones; ++i) {
                 /* Non-critical section */
-                wantp = true;
-                while (turn != 1) {
-                    while (wantq) {
-                    }
+                wantp = true;                           //EL ALGORITMO PUEDE FALLAR PUES SI NO TIENE EL TURNO Y EL SEGUNDO HILO NO HA
+                while (turn != 1) {                     //PUESTO wantq = true, PUEDE SALIR DEL SEGUNDO while. INMEDIATAMENTE DESPUÉS EL 
+                    while (wantq) {                     //SEGUNDO HILO LLEGA A SU PRIMER WHILE Y COMO TIENE EL TURNO ENTRA EN LA SC.
+                    }                                   //INMEDIATAMENTE DESPUÉS EL PRIMER HILO PONER turn = 1 Y ENTRA TAMBIÉN EN LA SC.
                     turn = 1;
                 }
                 inCS++;
